@@ -1,12 +1,9 @@
 import { useContext, useEffect, useState } from "react";
-import { MdDarkMode, MdLightMode } from "react-icons/md";
-import { AuthContext } from "../../../Providers/AuthProviders";
-import { ThemeContext } from "../../../Providers/ThemeProvider";
 import { Link, NavLink, useNavigate } from "react-router-dom";
+import { AuthContext } from "../../providers/authprovider";
 
 const Navbar = () => {
   const { user, logoutUser } = useContext(AuthContext);
-  const { toggleTheme, isDarkTheme } = useContext(ThemeContext);
   const navigate = useNavigate();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -22,10 +19,7 @@ const Navbar = () => {
     navigate("/");
   };
 
-  const toggleDropdown = () => {
-    setIsDropdownOpen(!isDropdownOpen);
-  };
-
+ 
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 1024) {
@@ -48,7 +42,6 @@ const Navbar = () => {
             <label
               tabIndex={0}
               className="btn btn-ghost lg:hidden"
-              onClick={toggleDropdown}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -76,51 +69,35 @@ const Navbar = () => {
             )}
           </div>
           <a
-            className={`md:text-3xl font-extrabold uppercase ${
-              isDarkTheme ? "text-white" : ""
-            }`}
+            className={`md:text-3xl font-extrabold uppercase `}
           >
-            Athletic Excellence
+            Campus Navigator
           </a>
         </div>
         <div className="navbar-center hidden lg:flex md:justify-end">
           <ul
-            className={`menu menu-horizontal px-1 text-lg ${
-              !isDarkTheme ? "text-black" : "text-[#CDFF00]"
-            }`}
+            className={`menu menu-horizontal px-1 text-lg`}
           >
             <li>
               <NavLink to="/">Home</NavLink>
             </li>
             <li>
-              <NavLink to="classes">Classes</NavLink>
+              <NavLink to="classes">Colleges</NavLink>
             </li>
             <li>
-              <NavLink to="instructors">Instructors</NavLink>
+              <NavLink to="instructors">Admission</NavLink>
             </li>
             {user && (
               <li>
-                <NavLink to="dashboard">Dashboard</NavLink>
+                <NavLink to="dashboard">My Colleges</NavLink>
               </li>
             )}
           </ul>
         </div>
         <div className="navbar-end">
-          <div className="flex gap-3">
-            {isDarkTheme ? (
-              <MdLightMode
-                className="text-3xl text-white"
-                onClick={toggleTheme}
-              />
-            ) : (
-              <MdDarkMode
-                className="text-3xl text-black"
-                onClick={toggleTheme}
-              />
-            )}
-          </div>
           {user ? (
             <>
+             <p className="font-bold">{user?.displayName}</p>
               <Link
                 to="/login"
                 className="mx-4 btn md:btn-md sm:btn-sm"
@@ -128,11 +105,6 @@ const Navbar = () => {
               >
                 Logout
               </Link>
-              <img
-                className="w-12 rounded-full"
-                src={user?.photoURL}
-                alt=""
-              />
             </>
           ) : (
             <Link to="/login" className="mx-4 btn md:btn-md sm:btn-sm">

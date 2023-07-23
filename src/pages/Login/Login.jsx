@@ -40,7 +40,7 @@ const Login = () => {
   //Google sign in
   const handleGoogleSignIn = () => {
     loginWithGoogle()
-      .then((data) => {
+      .then(() => {
         navigate(from, { replace: true });
       })
       .catch((error) => {

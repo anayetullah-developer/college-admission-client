@@ -7,6 +7,7 @@ import Login from "../pages/Login/Login";
 import Colleges from "../pages/Colleges/Colleges";
 import Admission from "../pages/Admission/Admission";
 import MyColleges from "../pages/MyColleges/MyColleges";
+import Footer from "../pages/Footer/Footer";
 
 export const router = createBrowserRouter([
     {
@@ -38,6 +39,12 @@ export const router = createBrowserRouter([
             path: "/my-colleges",
             element: <MyColleges/>
         },
+        
+        {
+            path: "/footer",
+            element: <Footer/>
+        },
+
 
       ]
     },
